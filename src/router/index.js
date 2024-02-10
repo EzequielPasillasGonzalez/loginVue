@@ -18,6 +18,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../modules/auth/views/loginView.vue'),
+  },
+  {
     path: '/auth',
     ...routerLogin
   }
@@ -29,3 +34,20 @@ const router = createRouter({
 })
 
 export default router
+
+
+
+//! Importante aplicar
+// const canAccess = () => { // Protecciones para que no puedan pasar - Login probable uso
+//     return new Promise( (resolve, reject) => {
+//         const random = Math.random() * 100
+
+//         if( random > 50){
+//             console.log(`Autenticado - canAccess`);
+//             resolve(true)
+//         }else{
+//             console.log(random, 'Bloqueado por el beforeEach Guard - canAccess');
+//             reject()
+//         }
+//     })
+// }

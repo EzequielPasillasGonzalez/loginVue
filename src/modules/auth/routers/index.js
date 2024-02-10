@@ -7,5 +7,5 @@ export default {
             name: 'no-login',
             component: () => import(/* webpackChunkName: "no-login" */ '../views/noLoginView.vue')
         }
-    ]
+    ],        
 }

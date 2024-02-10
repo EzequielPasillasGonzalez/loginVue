@@ -4,7 +4,7 @@
 
     <br>
     
-    <button @click="gotToLogin" class="btn btn-primary">Inicia Sesión</button>
+    <button @click="gotToLogin" class="btn btn-primary">Login</button>
 
 
   </div>
