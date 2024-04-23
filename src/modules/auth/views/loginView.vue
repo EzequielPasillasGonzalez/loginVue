@@ -11,9 +11,7 @@
             </select>
         </div>
 
-        <template>
 
-        </template>
 
         <div class="container" v-if="Pedido.tipoEvento">
             <h3>¿A qué lugar desea ir?:</h3>
