@@ -1,4 +1,5 @@
 export default () => ({
         isLoading: true,
-        usuario: {}
+        usuario: {},
+        ticket: {}
 })

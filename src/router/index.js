@@ -25,6 +25,11 @@ const routes = [
   {
     path: '/auth',
     ...routerLogin
+  },
+  {
+    path: '/ticket',
+    name: 'ticket',
+    component: () => import(/* webpackChunkName: "ticket" */ '../modules/auth/views/ticketView.vue')
   }
 ]
 

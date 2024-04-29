@@ -36,3 +36,7 @@ export const getLogin = async ( { commit },  user) => {
     
 
 }
+
+export const getDataTicket = async ({ commit }, ticket) => { 
+    commit('setTicket', { ticket })
+}

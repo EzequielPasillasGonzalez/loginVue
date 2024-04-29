@@ -12,3 +12,12 @@ export const setUsuario = (state, user) => {
         
         state.isLoading = false
 }
+
+export const setTicket = (state, ticket) => {
+
+  state.ticket = {
+    datos: ticket,    
+  };
+  
+}
+

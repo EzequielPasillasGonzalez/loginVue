@@ -1,10 +1,11 @@
 <template>
     <div class="container">
-        <h1> Hola {{ usuario.nombre }} </h1>               
-        
+        <h1> Hola {{ usuario.nombre }} </h1>
+
         <div class="container">
             <h3>Selecciona el tipo de evento al que quieres ir </h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoEvento" placeholder="Evento:">                
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoEvento"
+                placeholder="Evento:">
                 <option value="Teatro">Teatro</option>
                 <option value="Cine">Cine</option>
                 <option value="Museo">Museo</option>
@@ -15,30 +16,32 @@
 
         <div class="container" v-if="Pedido.tipoEvento">
             <h3>¿A qué lugar desea ir?:</h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.lugarEvento" placeholder="Lugar:">   
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.lugarEvento"
+                placeholder="Lugar:">
                 <template v-if="Pedido.tipoEvento === 'Teatro'">
                     <option value="Teatro Colon de Buenos Aires">Teatro Colon de Buenos Aires</option>
                     <option value="Teatro de la Scala Milan">Teatro de la Scala Milan</option>
                     <option value="Teatro Metropolitan, Ciudad de Mexico">Teatro Metropolitan, Ciudad de Mexico</option>
-                </template>             
+                </template>
                 <template v-else-if="Pedido.tipoEvento === 'Cine'">
                     <option value="Cinemark">Cinemark</option>
                     <option value="Cinepolis">Cinepolis</option>
                     <option value="Cinemex">Cinemex</option>
                     <option value="AMC">AMC</option>
-                </template>             
+                </template>
                 <template v-else-if="Pedido.tipoEvento === 'Museo'">
                     <option value="Museo de Historia Mexicana">Museo de Historia Mexicana</option>
                     <option value="Museo del Noreste">Museo del Noreste</option>
                     <option value="Museo del Palacio">Museo del Palacio</option>
-                </template>             
-                
+                </template>
+
             </select>
         </div>
 
         <div class="container" v-if="Pedido.lugarEvento">
             <h3>Selecciona el día que quieras ir:</h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.diaSemana" placeholder="Dia de la semana:">                
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.diaSemana"
+                placeholder="Dia de la semana:">
                 <option value="Domingo">Domingo</option>
                 <option value="Lunes">Lunes</option>
                 <option value="Martes">Martes</option>
@@ -59,44 +62,48 @@
                 </template>
                 <template v-else>
                     <h3>Selecciona la funcion que quieres ir:</h3>
-                    <select class="form-select" aria-label="Default select example" v-model="Pedido.funcion" placeholder="Funcion:">                
+                    <select class="form-select" aria-label="Default select example" v-model="Pedido.funcion"
+                        placeholder="Funcion:">
                         <template v-if="Pedido.tipoEvento === 'Teatro'">
                             <option value="Don Quijote de la Mancha">Don Quijote de la Mancha</option>
                             <option value="Macbeth">Macbeth</option>
                             <option value="La Celestina">La Celestina</option>
-                        </template>             
+                        </template>
                         <template v-else-if="Pedido.tipoEvento === 'Cine'">
                             <option value="Avengers Clasificacion PG-13">Avengers Clasificacion PG-13</option>
-                            <option value="Jhon Wick Clasificacion R, mayores de 17">Jhon Wick Clasificacion R, mayores de 17</option>
-                            <option value="Superman Clasificacion: A">Superman Clasificacion: A</option>                        
-                        </template>             
+                            <option value="Jhon Wick Clasificacion R, mayores de 17">Jhon Wick Clasificacion R, mayores
+                                de 17</option>
+                            <option value="Superman Clasificacion: A">Superman Clasificacion: A</option>
+                        </template>
                     </select>
-                </template>                
-            </template>            
+                </template>
+            </template>
         </div>
 
         <div class="container" v-if="Pedido.diaSemana">
             <template v-if="Pedido.tipoEvento === 'Museo' && Pedido.diaSemana === 'Domingo'">
-                
+
             </template>
             <template v-else>
                 <h3>Selecciona un horario:</h3>
-                <select class="form-select" aria-label="Default select example" v-model="Pedido.horario" placeholder="Horario:">                
+                <select class="form-select" aria-label="Default select example" v-model="Pedido.horario"
+                    placeholder="Horario:">
                     <option value="17:00">17:00</option>
                     <option value="18:00">18:00</option>
                     <option value="19:00">19:00</option>
                 </select>
-            </template>            
+            </template>
         </div>
 
         <div class="container" v-if="Pedido.horario && Pedido.tipoEvento !== 'Museo'">
             <h3>Elige tu lugar:</h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoBoleto" placeholder="Lugar:">   
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoBoleto"
+                placeholder="Lugar:">
                 <template v-if="Pedido.tipoEvento === 'Teatro'">
                     <option value="Luneta">Luneta $350</option>
                     <option value="Palco">Palco $250</option>
                     <option value="General">General $150</option>
-                </template>             
+                </template>
                 <template v-else-if="Pedido.tipoEvento === 'Cine'">
                     <option value="Tradicional">Tradicional: $35</option>
                     <option value="PLUUS">PLUUS: $70</option>
@@ -107,49 +114,51 @@
                     <option value="IMAX">IMAX: $180</option>
                     <option value="VR">VR: $150</option>
                     <option value="Screen X">Screen X: $120</option>
-                </template>                        
-                
+                </template>
+
             </select>
         </div>
 
         <div class="container" v-if="Pedido.precio">
             <template v-if="Pedido.tipoEvento === 'Museo' && Pedido.diaSemana === 'Domingo'">
                 <div>
-                    
+
                 </div>
             </template>
-            <template v-else>                
+            <template v-else>
                 <h3>¿Cuantos boletos necesita?:</h3>
                 <h4>El costo del bleto que eligio es: ${{ Pedido.precio }}</h4>
-                <select class="form-select" aria-label="Default select example" v-model="Pedido.total" placeholder="Lugar:">                   
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>                
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>                
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>                
-                        <option value="10">10</option>                
-                </select>                
+                <select class="form-select" aria-label="Default select example" v-model="Pedido.total"
+                    placeholder="Lugar:">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
             </template>
-            
+
         </div>
 
-        <div class="container" v-if="Pedido.total">            
-                <div>
-                    
-                        <h3>Selecciona tuu asiento:</h3>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Pedido.asientos">
-                        <h3>Asientos Disponibles:</h3>
-                        <ul>
-                            <button v-for="asiento in asientos" :key="asiento.numero" @click="seleccionarAsiento(asiento, Pedido.total)">
-                                {{ asiento.numero }} ({{ asiento.disponible ? 'Disponible' : 'Ocupado' }})
-                            </button>
-                        </ul>                                                    
-                    
-                </div>            
+        <div class="container" v-if="Pedido.total">
+            <div>
+
+                <h3>Selecciona tuu asiento:</h3>
+                <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Pedido.asientos">
+                <h3>Asientos Disponibles:</h3>
+                <ul>
+                    <button v-for="asiento in asientos" :key="asiento.numero"
+                        @click="seleccionarAsiento(asiento, Pedido.total)">
+                        {{ asiento.numero }} ({{ asiento.disponible ? 'Disponible' : 'Ocupado' }})
+                    </button>
+                </ul>
+
+            </div>
         </div>
 
 
@@ -157,74 +166,55 @@
         <div class="container" v-if="Pedido.total">
             <h3>Seleccione el metodo de pago:</h3>
             <h4>El total de su compra es: {{ Pedido.total * Pedido.precio }}</h4>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.metodoPago.metodo" placeholder="Lugar:">                   
-                    <option value="Tarjeta Debito">Tarjeta Debito</option>
-                    <option value="Tarjeta Credito">Tarjeta Debito</option>
-                    <option value="Paypal">Paypal</option>                                                
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.metodoPago.metodo"
+                placeholder="Lugar:">
+                <option value="Tarjeta Debito">Tarjeta Debito</option>
+                <option value="Tarjeta Credito">Tarjeta Debito</option>
+                <option value="Paypal">Paypal</option>
             </select>
         </div>
 
         <div class="container">
             <template v-if="Pedido.metodoPago.metodo && Pedido.metodoPago.metodo !== 'Paypal'">
-                <h3>Ingrese los datos de su tarjeta:</h3>            
+                <h3>Ingrese los datos de su tarjeta:</h3>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Numero de tarjeta</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Pedido.metodoPago.numeroTarjeta" min="16" max="16">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" required
+                        v-model="Pedido.metodoPago.numeroTarjeta" min="16" max="16">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Nombre del propietario</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Pedido.metodoPago.nombreTarjeta" max="8">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" required
+                        v-model="Pedido.metodoPago.nombreTarjeta" max="8">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">CVV</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Pedido.metodoPago.cvv" min="3" max="3">
-                </div>    
+                    <input type="text" class="form-control" id="exampleFormControlInput1" required
+                        v-model="Pedido.metodoPago.cvv" min="3" max="3">
+                </div>
                 <button @click="confirmar('tarjeta')">Confirmar</button>
             </template>
-            <template v-else-if="Pedido.metodoPago.metodo && Pedido.metodoPago.metodo === 'Paypal'">                
+            <template v-else-if="Pedido.metodoPago.metodo && Pedido.metodoPago.metodo === 'Paypal'">
                 <h3>Ingrese los datos de su cuenta:</h3>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" v-model="Pedido.metodoPago.numeroTarjeta" >
+                    <input type="email" class="form-control" id="exampleFormControlInput1" required
+                        v-model="Pedido.metodoPago.numeroTarjeta">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="exampleFormControlInput1" v-model="Pedido.metodoPago.nombreTarjeta">
+                    <input type="password" class="form-control" id="exampleFormControlInput1" required
+                        v-model="Pedido.metodoPago.nombreTarjeta">
                 </div>
 
                 <button @click="confirmar('paypal')">Confirmar</button>
             </template>
-            
-            
+
+
         </div>
 
         <div>
-            <template v-if="mostrarMensaje === true">
-                <p>Tipo de evento: {{Pedido.tipoEvento}}</p>
-                <p>Lugar del evento: {{Pedido.lugarEvento}}</p>
-                <p>Funcion: {{Pedido.funcion}}</p>
-                <p>Dia: {{Pedido.diaSemana}}</p>
-                <p>Horario: {{Pedido.horario}}</p>
-                <p>Tipo de boleto: {{Pedido.tipoBoleto}}</p>
-                <p>Precio: {{Pedido.precio}}</p>
-                <p>Total: ${{Pedido.total * Pedido.precio}}</p>
-                <p>Tipo de vestimenta: {{Pedido.tipoVestimenta}}</p>
-                <template v-for="asiento in Pedido.asientos" :key="asiento.id">
-                    <p>
-                        Asiento: {{asiento}}
-                    </p>
-                </template>
-                <template v-for="metodo in Pedido.metodoPago" :key="metodo.id">
-                    <template v-if="metodo">
-                        <p>
-                            {{metodo}}
-                        </p>
-                    </template>
-                    
-                </template>
-
-            </template>
-            <template v-else-if="mostrarMensaje === false">
+            <template v-if="mostrarMensaje === false">
                 <div>
                     <h2 style="color: red;">Falta algun dato</h2>
                 </div>
@@ -236,7 +226,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {    
 
@@ -295,9 +285,13 @@ export default {
     computed:{
         ...mapState( 'authStore', {
             usuario: 'usuario'
-        })
+        }),
+        
     },
     methods: {
+        ...mapActions('authStore', [
+            'getDataTicket'
+        ]),
         seleccionarAsiento(numeroAsiento, totalBoletos){
             if(this.numeroBoletos < totalBoletos){
                 this.numeroBoletos++
@@ -309,18 +303,25 @@ export default {
             }
             
         },
-        confirmar(metodo){
+        async confirmar(metodo){
+            let patronNumeros16 = /^[0-9]{16}$/;
+            let patronNumeros3 = /^[0-9]{3}$/;
+            let regex = /^[A-Za-z]+$/;
+            
             switch (metodo) {
                 case 'tarjeta':
-                    if(this.Pedido.metodoPago.nombreTarjeta && this.Pedido.metodoPago.numeroTarjeta && this.Pedido.metodoPago.cvv){
-                        this.mostrarMensaje = true 
+                    if (regex.test(this.Pedido.metodoPago.nombreTarjeta) && patronNumeros16.test(this.Pedido.metodoPago.numeroTarjeta) && patronNumeros3.test(this.Pedido.metodoPago.cvv)){                        
+                        this.Pedido.total = this.Pedido.total * this.Pedido.precio
+                        await this.getDataTicket(this.Pedido)
+                        this.$router.push({ name: 'ticket' })
                     }else{
                         this.mostrarMensaje = false
                     }
                     break;
                 case 'paypal':
                 if(this.Pedido.metodoPago.nombreTarjeta && this.Pedido.metodoPago.numeroTarjeta){
-                    this.mostrarMensaje = true
+                    await this.getDataTicket(this.Pedido)
+                    this.$router.push({ name: 'ticket' })
                     }else{
                         this.mostrarMensaje = false
                     }
@@ -329,6 +330,7 @@ export default {
                     this.mostrarMensaje = false
                     break;
             }
+            
         }
     },
     watch: {
@@ -400,5 +402,35 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style scoped>
+/* select{    
+    cursor: pointer;
+    border-color:  #005416;
+    border-width: 3px;
+} */
+
+input,select:hover {
+    cursor: pointer;
+    border-color: #005416;
+    border-width: 3px;
+}
+
+/* input:hover {
+    cursor: pointer;
+    border-color: #005416;
+    border-width: 3px;
+} */
+
+/* Estilo base del botón */
+button {            
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Agrega una transición suave */
+}
+
+/* Estilo al pasar el cursor sobre el botón */
+button:hover {
+    background-color: #66746a;
+}
 </style>
