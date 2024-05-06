@@ -227,6 +227,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import cafeteriaOrderApi from '@/api/apiOrderCafeteria';
 
 export default {    
 
@@ -313,6 +314,7 @@ export default {
                     if (regex.test(this.Pedido.metodoPago.nombreTarjeta) && patronNumeros16.test(this.Pedido.metodoPago.numeroTarjeta) && patronNumeros3.test(this.Pedido.metodoPago.cvv)){                        
                         this.Pedido.total = this.Pedido.total * this.Pedido.precio
                         await this.getDataTicket(this.Pedido)
+                        await cafeteriaOrderApi.post("/order.json", this.Pedido) //? Le hace un peticion get al api    
                         this.$router.push({ name: 'ticket' })
                     }else{
                         this.mostrarMensaje = false
@@ -321,6 +323,7 @@ export default {
                 case 'paypal':
                 if(this.Pedido.metodoPago.nombreTarjeta && this.Pedido.metodoPago.numeroTarjeta){
                     await this.getDataTicket(this.Pedido)
+                    await cafeteriaOrderApi.post("/order.json", this.Pedido) //? Le hace un peticion get al api    
                     this.$router.push({ name: 'ticket' })
                     }else{
                         this.mostrarMensaje = false
