@@ -15,23 +15,33 @@
         </div>
 
         <div class="container" v-if="!letrasMinusculas || !passwordMinusculas">
-            <p style="color: red;"> Recuerda que:
-                <span>                    
-                        <ul>* No debe de contener mayúsculas</ul>
-                        <ul>* No debe de contener números</ul>                    
+            <p style="color: red;"> Recuerda que en la contraseña:
+                <span>
+                    <ul>* El uso exclusivo de minúsculas</ul>
+                    <ul>* No debe de contener números</ul>
+                    <ul>* No debe de contener caracteres especiales solo al inicio y al final</ul>
+                </span>
+            </p>
+
+            <p style="color: red;"> Recuerda que en el usuario:
+                <span>
+                    <ul>* Solo acepta de 4 a 10 caracteres alfanuméricos</ul>
+                    <ul>* No acepta minúsculas al inicio</ul>
+                    <ul>* No se permiten caracteres especiales al inicio</ul>
+                    <ul>* No se permiten espacios</ul>
                 </span>
             </p>
         </div>
 
         <button @click="gotToSingup" class="btn btn-primary">Inicia Sesión</button>
-        
+
     </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import Swal from 'sweetalert2';
-import validarMinusculas from '../../../helpers/formValidator'
+import { validarCadenaPersonalizada, validarCadena} from '../../../helpers/formValidator'
 
 
 export default {
@@ -57,17 +67,17 @@ export default {
 
             Swal.showLoading()
             
-            this.user.correo = this.correo
-            this.user.password = this.password
+            // this.user.correo = this.correo
+            // this.user.password = this.password
 
-            const ok = await this.getLogin(this.user)
+            // const ok = await this.getLogin(this.user)
             
 
-            if(ok === true){
+            if (this.passwordMinusculas && this.letrasMinusculas){
 
+                this.$router.push({ name: 'login', params: { isLogin: true } })
                Swal.fire('Loggin Exitoso', '', 'success')
-
-                this.$router.push({name: 'login', params: {isLogin: true}})
+               
             }else{
                 await Swal.fire({
                     icon: "error",
@@ -82,12 +92,12 @@ export default {
             usuario: 'usuario'
         }),
         letrasMinusculas(){
-            const validarMin = validarMinusculas(this.correo)
+            const validarMin = validarCadena(this.correo)
 
             return validarMin
         },
         passwordMinusculas(){
-            const validarPasswordMin = validarMinusculas(this.password)
+            const validarPasswordMin = validarCadenaPersonalizada(this.password)
 
             return validarPasswordMin
         }
