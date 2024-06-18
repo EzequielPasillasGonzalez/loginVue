@@ -1,11 +1,10 @@
 <template>
     <div class="container">
-        <h1> Hola {{ usuario.nombre }} </h1>
+        <h1> Hola {{ usuario.nombre }} </h1> <!-- ? Cuando se pone {{  }} aqui podemos mostrar el valor que tiene almacenado la variable -->
 
         <div class="container">
             <h3>Selecciona el tipo de evento al que quieres ir </h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoEvento"
-                placeholder="Evento:">
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.tipoEvento" placeholder="Evento:"> <!-- ? Con el v-model se usa para almacenar los datos en las variables  -->
                 <option value="Teatro">Teatro</option>
                 <option value="Cine">Cine</option>
                 <option value="Museo">Museo</option>
@@ -14,16 +13,15 @@
 
 
 
-        <div class="container" v-if="Pedido.tipoEvento">
+        <div class="container" v-if="Pedido.tipoEvento"> <!-- ? El v-if se usa para mostrar/hacer algo condicionalmente. En este caso se muestra el div si Pedido.tipoEvento tiene algun valor si no tiene entonces no se muestra -->
             <h3>¿A qué lugar desea ir?:</h3>
-            <select class="form-select" aria-label="Default select example" v-model="Pedido.lugarEvento"
-                placeholder="Lugar:">
+            <select class="form-select" aria-label="Default select example" v-model="Pedido.lugarEvento" placeholder="Lugar:">
                 <template v-if="Pedido.tipoEvento === 'Teatro'">
                     <option value="Teatro Colon de Buenos Aires">Teatro Colon de Buenos Aires</option>
                     <option value="Teatro de la Scala Milan">Teatro de la Scala Milan</option>
                     <option value="Teatro Metropolitan, Ciudad de Mexico">Teatro Metropolitan, Ciudad de Mexico</option>
                 </template>
-                <template v-else-if="Pedido.tipoEvento === 'Cine'">
+                <template v-else-if="Pedido.tipoEvento === 'Cine'"> <!-- ? El v-else-if se usa para hacer otra validacion, si no se cumplio la anterior entonces va y verifica esta condicion -->
                     <option value="Cinemark">Cinemark</option>
                     <option value="Cinepolis">Cinepolis</option>
                     <option value="Cinemex">Cinemex</option>
@@ -56,7 +54,7 @@
             <template v-if="Pedido.tipoEvento === 'Museo' && Pedido.diaSemana === 'Domingo'">
                 <h3 style="color: red;">No es posible elegir un dia no laboral</h3>
             </template>
-            <template v-else>
+            <template v-else> <!-- ? El v-else se usa para hacer algo si la primera condicion no se cumple -->
                 <template v-if="Pedido.tipoEvento === 'Museo'">
 
                 </template>
@@ -207,7 +205,7 @@
                         v-model="Pedido.metodoPago.nombreTarjeta">
                 </div>
 
-                <button @click="confirmar('paypal')">Confirmar</button>
+                <button @click="confirmar('paypal')">Confirmar</button> <!-- ? @click="" se usa para llamar a metodos cuando hacen click en un boton, en este caso se llama a la funcion confirmar y se envia 'paypal' como parametro -->
             </template>
 
 
@@ -231,11 +229,12 @@ import cafeteriaOrderApi from '@/api/apiOrderCafeteria';
 
 export default {    
 
-    data(){
-        return {
-            mostrarMensaje: null,
+    data(){ //<!-- ? Asi es como se declaran las variables a utilizar en el componente -->
+        return { //<!-- ? Es importante hacer el return -->
+            mostrarMensaje: null, //<!-- ? Declaracion de variable -->
             numeroBoletos: 0,
-            Pedido: {
+            apellido: '',
+            Pedido: { //<!-- ? Declaracion de objeto -->
                 tipoEvento: '',
                 lugarEvento: '',
                 funcion: '',
@@ -277,23 +276,23 @@ export default {
             ],            
         }
     },
-    props:{
-        login: {
-            required: true,
-            type: Boolean
+    props:{ //<!-- ? Las props se utilizan cuando se requieren recibir parametros de otro componente -->
+        login: { //<!-- ? Se recibe un parametro llamado login -->
+            required: true, //<!-- ? Es requerido si no muestra un error en consola-->
+            type: Boolean //<!-- ? Es de tipo booleano -->
         }
     },
-    computed:{
+    computed:{ //<!-- ? A esto no le hagas caso, yo estoy validando unas cosas del usaurio -->
         ...mapState( 'authStore', {
             usuario: 'usuario'
         }),
         
     },
-    methods: {
+    methods: { //<!-- ? Aqui se declaran los metodos a utilizar en el componente -->
         ...mapActions('authStore', [
             'getDataTicket'
         ]),
-        seleccionarAsiento(numeroAsiento, totalBoletos){
+        seleccionarAsiento(numeroAsiento, totalBoletos){ //<!-- ? ESte es un metodo que recibe dos parametros  -->
             if(this.numeroBoletos < totalBoletos){
                 this.numeroBoletos++
                 let index = this.asientos.findIndex((asiento) => asiento.numero === numeroAsiento.numero)                        
@@ -304,7 +303,7 @@ export default {
             }
             
         },
-        async confirmar(metodo){
+        async confirmar(metodo){ //<!-- ? Este es la funcion que llama el boton y aqui ya hace varias validaciones  -->
             let patronNumeros16 = /^[0-9]{16}$/;
             let patronNumeros3 = /^[0-9]{3}$/;
             let regex = /^[A-Za-z]+$/;
@@ -405,7 +404,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped> /*<!-- ? Con el scoped nos aseguramos que el estilo solo se quede en este componente y no se comparta con los demas  -->*/
 /* select{    
     cursor: pointer;
     border-color:  #005416;
